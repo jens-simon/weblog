@@ -1,6 +1,6 @@
 <?php
 
-function holeEintraege( $db, $umgedreht = false)
+function holeEintraege($db, $umgedreht = false)
 {
 
 
@@ -13,10 +13,14 @@ function holeEintraege( $db, $umgedreht = false)
         $eintraege = [];
     }
 */
-$sql = 'SELECT * FROM eintraege';
+    if ($umgedreht === false) {
+        $sql = 'SELECT * FROM eintraege ORDER BY erstellt_am ASC';
+    } else {
+        $sql = 'SELECT * FROM eintraege ORDER BY erstellt_am DESC';
+    }
 
-$statement = $db->query($sql);
-$eintraege = $statement->fetchAll();
+    $statement = $db->query($sql);
+    $eintraege = $statement->fetchAll();
 
 
     return $eintraege;
@@ -31,9 +35,12 @@ function bereinige($benutzerEingabe, $encoding = 'UTF-8')
     );
 }
 
-function speichereEintraege($eintraege)
+function speichereEintraege($db, $eintrag)
 {
-    file_put_contents(PFAD_EINTRAEGE, serialize($eintraege));
+    $sql = 'INSERT INTO eintraege (titel, inhalt, autor, erstellt_am) VALUES (:titel, :inhalt, :autor, :erstellt_am)';
+
+    $statement = $db->prepare($sql);
+    $statement->execute($eintrag);
 }
 
 function redirect($url)

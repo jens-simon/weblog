@@ -11,8 +11,13 @@ if (!istEingeloggt() || empty($_GET['id'])) {
 }
 
 // Ermittle Eintrag anhand der übermittelten ID
-$eintraege = holeEintraege();
-$eintrag = $eintraege[$_GET['id']];
+$sql = 'SELECT * FROM eintraege WHERE id=?';
+$statement = $db->prepare($sql);
+$eintrag = $statement->execute([$_GET['id']]);
+
+
+
+
 
 ?>
 <!DOCTYPE html>

@@ -17,17 +17,14 @@ if (!empty($_POST)) {
         'titel' => trim($_POST['titel']),
         'inhalt' => trim($_POST['inhalt']),
         'autor' => $_SESSION['eingeloggt'],
-        'erstellt_am' => time(),
+        'erstellt_am' => date("Y-m-d H:i:s"),
     ];
 
-    // Hole die alten Einträge, hänge den neuen an und speichere alle.
-    $eintraege = holeEintraege();
-    $eintraege[] = $eintrag;
-    speichereEintraege($eintraege); // Siehe Übung 89
+
+    speichereEintraege($db,$eintrag); // Siehe Übung 89
 
     // Ermittle den Index des Eintrags
-    $indizes = array_keys($eintraege);
-    $id = array_pop($indizes);
+    $id = $db->lastInsertId();//array_pop($indizes);
 
     // Leite zur Erfolgsmeldung um und übermittle den Index
     redirect('eintrag_danke.php?id=' . $id);
