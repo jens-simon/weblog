@@ -1,8 +1,10 @@
 <?php
 
-function holeEintraege($umgedreht = false)
+function holeEintraege( $db, $umgedreht = false)
 {
-    if (file_exists(PFAD_EINTRAEGE)) {
+
+
+    /*if (file_exists(PFAD_EINTRAEGE)) {
         $eintraege = unserialize(file_get_contents(PFAD_EINTRAEGE));
         if ($umgedreht === true) {
             $eintraege = array_reverse($eintraege);
@@ -10,6 +12,12 @@ function holeEintraege($umgedreht = false)
     } else {
         $eintraege = [];
     }
+*/
+$sql = 'SELECT * FROM eintraege';
+
+$statement = $db->query($sql);
+$eintraege = $statement->fetchAll();
+
 
     return $eintraege;
 }

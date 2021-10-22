@@ -15,7 +15,7 @@ if (isset($_SESSION['meldung'])) {
 }
 
 // In Blogs werden Einträge in umgekehrter Reihenfolge angezeigt
-$eintraege = holeEintraege(true);
+$eintraege = holeEintraege($db,true);
 
 ?>
 <!DOCTYPE html>
@@ -37,16 +37,16 @@ $eintraege = holeEintraege(true);
 
         <section id="content">
 
-            <?php foreach ($eintraege as $e): ?>
+            <?php foreach ($eintraege as $e) : ?>
                 <?php require 'inc/eintrag.tpl.php'; ?>
             <?php endforeach; ?>
 
         </section>
 
         <aside id="menu">
-            <?php if (istEingeloggt()): ?>
+            <?php if (istEingeloggt()) : ?>
                 <?php require 'inc/hauptmenu.tpl.php'; ?>
-            <?php else: ?>
+            <?php else : ?>
                 <?php require 'inc/loginformular.tpl.php'; ?>
             <?php endif; ?>
         </aside>

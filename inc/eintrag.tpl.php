@@ -13,8 +13,8 @@
             <?= BENUTZER_DATEN[$e['autor']]['vorname'] ?>
             <?= BENUTZER_DATEN[$e['autor']]['nachname'] ?>
             am
-            <time datetime="<?= strftime('%Y-%m-%dT%H:%M:%S', $e['erstellt_am']) ?>">
-                <?= strftime('%d.%m.%Y um %H:%M', $e['erstellt_am']) ?>
+            <time datetime="">
+                <?= strftime('%d.%m.%Y um %H:%M', strtotime($e['erstellt_am'])) ?>
             </time>
         </span>
     </footer>
